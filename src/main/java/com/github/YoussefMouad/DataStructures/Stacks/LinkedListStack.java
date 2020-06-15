@@ -2,10 +2,10 @@ package com.github.YoussefMouad.DataStructures.Stacks;
 
 import com.github.YoussefMouad.DataStructures.LinkedList;
 
-public class StackLinkedList<T> implements IStack<T> {
+public class LinkedListStack<T> implements IStack<T> {
     LinkedList<T> list;
 
-    public StackLinkedList() {
+    public LinkedListStack() {
         this.list = new LinkedList<>();
     }
 

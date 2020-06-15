@@ -1,15 +1,13 @@
 package com.github.YoussefMouad.DataStructures.Stacks;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StackArrayTest {
-
+class LinkedListStackTest {
     @Test
     void TestPushItem() {
-        IStack<Integer> stack = new StackArray<>(5);
+        IStack<Integer> stack = new LinkedListStack<>();
         assertEquals(0, stack.count());
         stack.push(10);
         assertEquals(10, stack.peek());
@@ -21,15 +19,11 @@ class StackArrayTest {
 
         assertEquals(5, stack.count());
         assertEquals(50, stack.peek());
-
-        assertThrows(StackOverflowError.class, () -> {
-            stack.push(60);
-        });
     }
 
     @Test
     void TestPopItem() {
-        IStack<Integer> stack = new StackArray<>(5);
+        IStack<Integer> stack = new LinkedListStack<>();
         stack.push(10);
         stack.push(20);
         stack.push(30);

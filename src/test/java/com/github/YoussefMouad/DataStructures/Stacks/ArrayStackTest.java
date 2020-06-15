@@ -4,10 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StackLinkedListTest {
+class ArrayStackTest {
+
     @Test
     void TestPushItem() {
-        IStack<Integer> stack = new StackLinkedList<>();
+        IStack<Integer> stack = new ArrayStack<>(5);
         assertEquals(0, stack.count());
         stack.push(10);
         assertEquals(10, stack.peek());
@@ -19,11 +20,15 @@ class StackLinkedListTest {
 
         assertEquals(5, stack.count());
         assertEquals(50, stack.peek());
+
+        assertThrows(StackOverflowError.class, () -> {
+            stack.push(60);
+        });
     }
 
     @Test
     void TestPopItem() {
-        IStack<Integer> stack = new StackLinkedList<>();
+        IStack<Integer> stack = new ArrayStack<>(5);
         stack.push(10);
         stack.push(20);
         stack.push(30);
