@@ -41,4 +41,24 @@ class TreeTest {
         tree.insert(11);
         assertEquals(3, tree.height());
     }
+
+    @Test
+    void testMinValue() {
+        assertEquals(1, tree.min());
+        tree.insert(0);
+        assertEquals(0, tree.min());
+        assertThrows(IllegalStateException.class, () -> new Tree().min());
+    }
+
+    @Test
+    void testEquals() {
+        assertTrue(tree.equals(tree));
+        assertFalse(tree.equals(null));
+        assertFalse(tree.equals(new Tree()));
+    }
+
+    @Test
+    void testValidBinarySearchTree() {
+        assertTrue(tree.isBinarySearchTree());
+    }
 }

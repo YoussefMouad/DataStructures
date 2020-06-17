@@ -76,7 +76,7 @@ public class Tree {
         System.out.println(node.value);
     }
 
-    public int height(){
+    public int height() {
         return height(root);
     }
 
@@ -84,13 +84,74 @@ public class Tree {
         if (node == null)
             return -1;
 
-        if (node.left == null && node.right == null)
+        if (isLeaf(node))
             return 0;
 
         return 1 + Math.max(
                 height(node.left),
                 height(node.right)
         );
+    }
+
+    // O(log n) If it's a binary search tree only check for left node
+    public int min() {
+        if (root == null)
+            throw new IllegalStateException();
+
+        var current = root;
+        var last = current;
+        while (current != null) {
+            last = current;
+            current = current.left;
+        }
+        return last.value;
+    }
+
+    // O(n) => if is a binary tree
+    private int min(Node node) {
+        if (isLeaf(node))
+            return node.value;
+
+        var left = node.left == null ? node.value : min(node.left);
+        var right = node.right == null ? node.value : min(node.right);
+
+        return Math.min(Math.min(left, right), node.value);
+    }
+
+    private boolean isLeaf(Node node) {
+        return node.left == null && node.right == null;
+    }
+
+    public boolean equals(Tree tree) {
+        if (tree == null)
+            return false;
+        return equals(root, tree.root);
+    }
+
+    private boolean equals(Node first, Node second) {
+        if (first == null && second == null)
+            return true;
+
+        if (first != null && second != null)
+            return first.value == second.value
+                    && equals(first.left, second.left)
+                    && equals(first.right, second.right);
+
+        return false;
+    }
+
+    public boolean isBinarySearchTree() {
+        return isValidNode(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private boolean isValidNode(Node node, int min, int max) {
+        if (node == null) return true;
+
+        if (node.value >= max || node.value <= min)
+            return false;
+
+        return isValidNode(node.left, min, node.value)
+                && isValidNode(node.right, node.value, max);
     }
 
     private static class Node {
